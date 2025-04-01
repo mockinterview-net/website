@@ -1,0 +1,55 @@
+---
+// Replace WEBSITE_ID with your actual website ID from Umami dashboard
+const WEBSITE_ID = "a54868e1-5fd1-4360-9b53-31c5be7dcabe";
+const UMAMI_SCRIPT_URL = "https://analytics.umami.is/script.js";
+---
+
+<!-- Umami Analytics -->
+<script 
+  async 
+  src={UMAMI_SCRIPT_URL}
+  data-website-id={WEBSITE_ID}
+></script>
+
+<script is:inline>
+  // Wait for DOM to be ready
+  document.addEventListener('DOMContentLoaded', () => {
+    // Track all link clicks
+    document.addEventListener('click', (e) => {
+      const link = e.target.closest('a');
+      if (!link) return;
+
+      const eventData = {
+        url: link.href,
+        text: link.textContent.trim(),
+        target: link.target,
+      };
+
+      // Special handling for known links
+      if (link.textContent.includes('Start Practicing Now')) {
+        umami.track('Start Practicing Now', eventData);
+      } else if (link.textContent.includes('Try the Telegram App')) {
+        umami.track('Try the Telegram App', eventData);
+      } else if (link.href.includes('t.me/')) {
+        umami.track('Telegram Link Click', eventData);
+      } else {
+        umami.track('Link Click', eventData);
+      }
+    });
+
+    // Legacy button tracking (if you have any non-link buttons)
+    const practiceButton = document.querySelector('[data-practice-button]');
+    if (practiceButton) {
+      practiceButton.addEventListener('click', () => {
+        umami.track('Practice Button Click');
+      });
+    }
+
+    const telegramButton = document.querySelector('[data-telegram-button]');
+    if (telegramButton) {
+      telegramButton.addEventListener('click', () => {
+        umami.track('Telegram Button Click');
+      });
+    }
+  });
+</script> 
