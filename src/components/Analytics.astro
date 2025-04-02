@@ -1,15 +1,5 @@
----
-// Replace WEBSITE_ID with your actual website ID from Umami dashboard
-const WEBSITE_ID = "a54868e1-5fd1-4360-9b53-31c5be7dcabe";
-const UMAMI_SCRIPT_URL = "https://analytics.umami.is/script.js";
----
-
 <!-- Umami Analytics -->
-<script 
-  async 
-  src={UMAMI_SCRIPT_URL}
-  data-website-id={WEBSITE_ID}
-></script>
+<script defer src="https://cloud.umami.is/script.js" data-website-id="a54868e1-5fd1-4360-9b53-31c5be7dcabe"></script>
 
 <script is:inline>
   // Wait for DOM to be ready
